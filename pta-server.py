@@ -37,7 +37,7 @@ while 1:
 
                               # Verificação se usuario é válido
                               user = sentence[2] + '\n'
-                              validUsers = open("pta-server/users.txt", "r").readlines()
+                              validUsers = open("PTA-server/pta-server/users.txt", "r").readlines()
 
                               if user in validUsers:
                                    REPLY = "OK"
@@ -69,7 +69,7 @@ while 1:
                          
                                 REPLY = "ARQS"
                                 # Organiza a lista de arquivos presentes no servidor
-                                ARGS = os.listdir("pta-server/files") #
+                                ARGS = os.listdir("PTA-server/pta-server/files") #
                                 text = str(len(ARGS)) + " " + str(ARGS[0])
                                 for i in ARGS[1:]:
                                      text = text + "," + i 
@@ -81,8 +81,8 @@ while 1:
                          # Comando PEGA
                          elif sentence[1] == "PEGA":
                                    REPLY = "ARQ"
-                                   ARQ = open("pta-server/files/" + sentence[2], "rb").read() # Pega as informações em byte do arquivo
-                                   SizeFile = os.stat("pta-server/files/" + sentence[2]).st_size # Pega as informações de tamanho do arquivo
+                                   ARQ = open("PTA-server/pta-server/files/" + sentence[2], "rb").read() # Pega as informações em byte do arquivo
+                                   SizeFile = os.stat("PTA-server/pta-server/files/" + sentence[2]).st_size # Pega as informações de tamanho do arquivo
                                    
                                    # Organiza a resposta de saída
                                    text = str(SizeFile) + " " + str(ARQ)[2:-1]
