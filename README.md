@@ -4,7 +4,13 @@ Essa aplicação funciona na porta 11550 e para o caso de clientes na mesma máq
 
 Para a execução do escript do servidor, executar o comando abaixo após baixar o repositório:
 
-obs: não precisa entrar na pasta do repositório baixado
+obs: é preciso entrar na pasta do repositório baixado
 ```
-python3 PTA-server/pta-server.py
+python3 pta-server/pta-server.py
+```
+obs2: só funciona em linux
+
+Para execução do Cliente:
+```
+python3 pta-client.py 127.0.0.1 11550 "user"
 ```

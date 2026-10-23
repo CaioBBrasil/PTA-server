@@ -1,8 +1,16 @@
 from socket import *
-from signal import signal, SIGPIPE, SIG_DFL
+import signal
 import os
-signal(SIGPIPE,SIG_DFL)
+from pathlib import Path
 
+BASE_DIR = Path(__file__).resolve().parent
+
+USERS_FILE = BASE_DIR / "users.txt"
+FILES_DIR = BASE_DIR / "files"
+
+if hasattr(signal, "SIGPIPE"):
+    signal.signal(signal.SIGPIPE, signal.SIG_DFL)
+    
 serverPort = 11550 # Porta da comunicação 
 serverSocket = socket(AF_INET,SOCK_STREAM)  # Cria o Socket TCP (SOCK_STREAM) para rede IPv4 (AF_INET)
 serverSocket.bind(('',serverPort))
@@ -37,7 +45,7 @@ while 1:
 
                               # Verificação se usuario é válido
                               user = sentence[2] + '\n'
-                              validUsers = open("PTA-server/pta-server/users.txt", "r").readlines()
+                              validUsers = open(USERS_FILE, "r").readlines()
 
                               if user in validUsers:
                                    REPLY = "OK"
@@ -69,7 +77,7 @@ while 1:
                          
                                 REPLY = "ARQS"
                                 # Organiza a lista de arquivos presentes no servidor
-                                ARGS = os.listdir("PTA-server/pta-server/files") #
+                                ARGS = os.listdir(FILES_DIR)
                                 text = str(len(ARGS)) + " " + str(ARGS[0])
                                 for i in ARGS[1:]:
                                      text = text + "," + i 
@@ -81,8 +89,8 @@ while 1:
                          # Comando PEGA
                          elif sentence[1] == "PEGA":
                                    REPLY = "ARQ"
-                                   ARQ = open("PTA-server/pta-server/files/" + sentence[2], "rb").read() # Pega as informações em byte do arquivo
-                                   SizeFile = os.stat("PTA-server/pta-server/files/" + sentence[2]).st_size # Pega as informações de tamanho do arquivo
+                                   ARQ = open(FILES_DIR / sentence[2], "rb").read() # Pega as informações em byte do arquivo
+                                   SizeFile = os.stat(FILES_DIR / sentence[2]).st_size # Pega as informações de tamanho do arquivo
                                    
                                    # Organiza a resposta de saída
                                    text = str(SizeFile) + " " + str(ARQ)[2:-1]
