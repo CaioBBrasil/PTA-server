@@ -10,7 +10,7 @@ python3 pta-server/pta-server.py
 ```
 obs2: só funciona em linux
 
-Para execução do Cliente:
+Para execução do Cliente, troque "user" pelo usuário especifico:
 ```
 python3 pta-client.py 127.0.0.1 11550 "user"
 ```
